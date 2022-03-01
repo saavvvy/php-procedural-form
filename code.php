@@ -45,31 +45,32 @@ if (isset($_POST['register_btn'])) {
     $password = $_POST['password'];
     $verify_token = md5(rand()); // will generate integers and alphabets to be merged up
 
-    sendemail_verify("$name", "$email", "$verify_token");
-    echo "sent or not ?";
+    // sendemail_verify("$name", "$email", "$verify_token");
+    // echo "sent or not ?";
 
     // Check if email already exists in the database or not
-    // $check_email_query = "SELECT email FROM users WHERE email = '$email' LIMIT 1";
-    // $check_email_query_run = mysqli_query($con, $check_email_query);
+    $check_email_query = "SELECT email FROM users WHERE email = '$email' LIMIT 1";
+    $check_email_query_run = mysqli_query($con, $check_email_query);
 
-    // // if the above condition is not successful, cannot add to database. redirect to register.php, if else add to database
-    // if (mysqli_num_rows($check_email_query_run) > 0) {
-    //     $_SESSION['status'] = "Email ID already exists";
-    //     header("Location: register.php");
-    // } else {
-    //     // insert new users into the database
-    //     $query = "INSERT INTO users (name,phone,email,password,verify_token) VALUES ('$name', '$phone', '$email', '$password', '$verify_token')";
-    //     $query_run = mysqli_query($con, $query);
+    // if the above condition is not successful, cannot add to database. redirect to register.php, if else add to database
+    if (mysqli_num_rows($check_email_query_run) > 0) {
+        $_SESSION['status'] = "Email ID already exists";
+        header("Location: register.php");
+    } else {
+        // insert new users into the database
+        $encpassword = password_hash($password, PASSWORD_BCRYPT);
+        $query = "INSERT INTO users (name,phone,email,password,verify_token) VALUES ('$name', '$phone', '$email', '$encpassword', '$verify_token')";
+        $query_run = mysqli_query($con, $query);
 
-    //     if ($query_run) {
-    //         // if query is successful, send the below message
-    //         sendemail_verify("$name", "$email", "$verify_token");
-    //         $_SESSION['status'] = "Registration successful. Please verify your email address!";
-    //         header("Location: register.php");
-    //     } else {
-    //         // if it is not go back to register
-    //         $_SESSION['status'] = "Registration Failed";
-    //         header("Location: register.php");
-    //     }
-    // }
+        if ($query_run) {
+            // if query is successful, send the below message
+            sendemail_verify("$name", "$email", "$verify_token");
+            $_SESSION['status'] = "Registration successful. Please verify your email address!";
+            header("Location: register.php");
+        } else {
+            // if it is not go back to register.php
+            $_SESSION['status'] = "Registration Failed!";
+            header("Location: register.php");
+        }
+    }
 }

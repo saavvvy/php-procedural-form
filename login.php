@@ -1,4 +1,5 @@
 <?php
+session_start();
 $page_title = "Login Form";
 include("includes/header.php");
 include("includes/navbar.php");
@@ -6,6 +7,16 @@ include("includes/navbar.php");
 
 <div class="form-body">
     <div class="containers">
+        <?php
+        if (isset($_SESSION['status'])) {
+        ?>
+            <div class="alert alert-success">
+                <h5><?= $_SESSION['status']; ?></h5>
+            </div>
+        <?php
+            unset($_SESSION['status']);
+        }
+        ?>
         <div class="forms">
             <div class="form login">
                 <span class="title">Login</span>
@@ -32,8 +43,7 @@ include("includes/navbar.php");
                     </div>
 
                     <div class="input-field button">
-                        <!-- <input type="button" value="Login Now"> -->
-                        <button type="submit" name="d">Register Now</button>
+                        <button type="submit" name="login_now_btn" name="d">Register Now</button>
                     </div>
                 </form>
 
