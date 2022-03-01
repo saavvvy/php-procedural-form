@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+// if you are already logged in do not show the login page
+if (isset($_SESSION['authenticated'])) {
+    $_SESSION['status'] = "You are already Logged in!";
+    header("Location: dashboard.php");
+    exit(0);
+}
+
 $page_title = "Login Form";
 include("includes/header.php");
 include("includes/navbar.php");
@@ -21,14 +29,14 @@ include("includes/navbar.php");
             <div class="form login">
                 <span class="title">Login</span>
 
-                <form action="#">
+                <form action="logincode.php" method="POST">
                     <div class="input-field">
-                        <input type="email" placeholder="Enter your email" required>
+                        <input type="email" name="email" placeholder="Enter your email" required>
                         <i class="uil uil-envelope icon"></i>
                     </div>
 
                     <div class="input-field">
-                        <input type="password" class="password" placeholder="Enter your password" required>
+                        <input type="password" name="password" class="password" placeholder="Enter your password" required>
                         <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
                     </div>
@@ -43,7 +51,7 @@ include("includes/navbar.php");
                     </div>
 
                     <div class="input-field button">
-                        <button type="submit" name="login_now_btn" name="d">Register Now</button>
+                        <button type="submit" name="login_now_btn">Register Now</button>
                     </div>
                 </form>
 

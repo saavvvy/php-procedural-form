@@ -58,8 +58,8 @@ if (isset($_POST['register_btn'])) {
         header("Location: register.php");
     } else {
         // insert new users into the database
-        $encpassword = password_hash($password, PASSWORD_BCRYPT);
-        $query = "INSERT INTO users (name,phone,email,password,verify_token) VALUES ('$name', '$phone', '$email', '$encpassword', '$verify_token')";
+        // $encpassword = password_hash($password, PASSWORD_BCRYPT);
+        $query = "INSERT INTO users (name,phone,email,password,verify_token) VALUES ('$name', '$phone', '$email', '$password', '$verify_token')";
         $query_run = mysqli_query($con, $query);
 
         if ($query_run) {

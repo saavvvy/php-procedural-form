@@ -12,12 +12,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
+
+                    <!-- if authentication is not set, show register and login button -->
+                    <?php if (!isset($_SESSION['authenticated'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="register.php">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Login</a>
+                        </li>
+                    <?php endif ?>
+
+                    <!-- if authentication is set, show only logout button -->
+                    <?php if (isset($_SESSION['authenticated'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    <?php endif ?>
                 </ul>
             </div>
         </div>
