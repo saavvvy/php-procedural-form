@@ -43,11 +43,12 @@ include("includes/navbar.php");
 
                     <div class="checkbox-text">
                         <div class="checkbox-content">
-                            <input type="checkbox" id="logCheck">
-                            <label for="logCheck" class="text">Remember Me!</label>
+                            <!-- <input type="checkbox" id="logCheck">
+                            <label for="logCheck" class="text">Remember Me!</label> -->
+                            <a href="resend-email-verification.php" class="text">Resend verification</a>
                         </div>
 
-                        <a href="#" class="text">Forgot password?</a>
+                        <a href="password-reset.php" class="text">Forgot password?</a>
                     </div>
 
                     <div class="input-field button">
