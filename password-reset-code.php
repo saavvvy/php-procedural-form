@@ -107,7 +107,7 @@ if (isset($_POST['password_update'])) {
                     if ($update_password_run) {
                         // this is so that after using a token once, you cannot use it again, it has expired unless you generate another one
 
-                        // the below code implies that immediately you use a token to change and update your password, it changes automatically in the database
+                        // the below code implies that immediately you use a token to change and update your password, the token changes automatically in the database, you cannot use it again unless you request for another one
                         $new_token = md5(rand()) . "saviour"; // concatenate with new_token if you want
                         $update_to_new_token = "UPDATE users SET verify_token = '$new_token' WHERE verify_token = '$token' LIMIT 1";
                         $update_to_new_token_run = mysqli_query($con, $update_to_new_token);
